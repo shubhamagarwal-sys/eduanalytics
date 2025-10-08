@@ -986,41 +986,6 @@ Before running, you need to:
 3. Run database migrations using Goose
 4. Configure JWT secrets (don't use defaults in production!)
 
-## 🗺️ Roadmap
-
-### Phase 1: Critical Fixes (Immediate)
-- [ ] Start event worker pool in main.go initialization
-- [x] Implement RBAC authorization (✅ Completed with Casbin)
-- [ ] Add comprehensive input validation
-- [ ] Improve WebSocket error handling
-- [ ] Add graceful shutdown handling
-
-### Phase 2: Production Readiness (Short-term)
-- [ ] Replace in-memory sessions with Redis
-- [ ] Add persistent message queue (RabbitMQ)
-- [ ] Implement table partitioning
-- [ ] Add database indexes
-- [ ] Add API documentation (Swagger)
-- [ ] Implement caching layer
-- [ ] Add pagination to reports
-
-### Phase 3: Feature Enhancement (Medium-term)
-- [ ] Generic query framework (Cube.dev)
-- [ ] Advanced analytics and visualizations
-- [ ] Data export (CSV, PDF)
-- [ ] Batch import endpoints
-- [ ] Email report scheduling
-- [ ] Materialized views for reports
-- [ ] Time-range filtering for reports
-
-### Phase 4: Advanced Features (Long-term)
-- [ ] Machine learning for predictions
-- [ ] Recommendation engine
-- [ ] Multi-language support
-- [ ] Mobile SDK
-- [ ] GraphQL API
-- [ ] Real-time dashboards
-
 ## 📚 Documentation
 
 - **[ER Diagram](docs/ER_DIAGRAM.md)** - Complete database schema with relationships
@@ -1044,10 +1009,6 @@ Contributions are welcome! Please follow these steps:
 - Add comments for complex logic
 - Update documentation for new features
 - Write tests for new functionality
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👥 Authors
 
