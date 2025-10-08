@@ -723,56 +723,6 @@ docker-compose down
 docker-compose down --volumes
 ```
 
-### Production Considerations
-
-**⚠️ IMPORTANT: This application is NOT production-ready in its current state.**
-
-**Critical items that MUST be addressed:**
-
-1. **Initialize Event Worker Pool:**
-   - [ ] Add `eventsController.StartWorkerPool(ctx, numWorkers)` in main.go
-   - [ ] Without this, events are queued but never persisted to database
-
-2. **Security:**
-   - [ ] Change all default passwords and secrets
-   - [ ] Use environment-specific `.env` files (don't commit!)
-   - [ ] Enable HTTPS/TLS
-   - [ ] Implement rate limiting
-   - [ ] Add comprehensive input validation
-   - [x] Enable RBAC authorization (✅ Implemented with Casbin)
-   - [ ] Add authentication to WebSocket endpoint
-   - [ ] Implement API key or token validation
-
-3. **Scalability:**
-   - [ ] Replace in-memory session storage with Redis
-   - [ ] Use persistent message queue (RabbitMQ/Kafka) instead of in-memory channel
-   - [ ] Optimize database connection pooling
-   - [ ] Add database read replicas for reports
-   - [ ] Implement table partitioning for events and responses tables
-   - [ ] Add query result caching layer
-
-4. **Monitoring & Observability:**
-   - [ ] Add health check endpoint (`/health`)
-   - [ ] Add Prometheus metrics
-   - [ ] Setup Grafana dashboards
-   - [ ] Implement distributed tracing (Jaeger/Zipkin)
-   - [ ] Add error tracking (Sentry)
-   - [ ] Add application performance monitoring
-
-5. **Data Management:**
-   - [ ] Setup automated database backups
-   - [ ] Implement data archival strategy (events/responses older than X months)
-   - [ ] Add database indexes for performance (already has basic indexes)
-   - [ ] Setup query result caching
-   - [ ] Implement data retention policies
-
-6. **Error Handling & Resilience:**
-   - [ ] Implement graceful shutdown
-   - [ ] Add circuit breakers for external dependencies
-   - [ ] Improve error responses with proper error codes
-   - [ ] Add retry logic for failed operations
-   - [ ] Implement request timeout handling
-
 ### Environment-Specific Configs
 
 **Development:**
