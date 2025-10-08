@@ -1,7 +1,7 @@
 # Use the official Golang 1.23 image as the base image
 FROM golang:1.23
 
-LABEL maintainer="Shubham Agarwal<sshubham.agarwal@in.geekyants.com>"
+LABEL maintainer="Shubham Agarwal<shubham.agarwal@in.geekyants.com>"
 # Set the working directory inside the container
 WORKDIR /app
 

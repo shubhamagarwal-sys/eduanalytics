@@ -241,8 +241,6 @@ bitbucket.org/liamstask/goose         # Database migrations
    http://localhost:9090/api/v1/
    ```
 
-**⚠️ Note:** Event worker pool is not initialized by default. Events will be queued but not persisted to the database. To enable event persistence, you need to initialize the worker pool in `main.go` (see Known Issues section).
-
 #### Option 2: Local Development
 
 1. **Clone and setup**
@@ -988,56 +986,6 @@ Before running, you need to:
 3. Run database migrations using Goose
 4. Configure JWT secrets (don't use defaults in production!)
 
-## 🐛 Known Issues & Limitations
-
-### Critical Issues (Must Fix Before Production)
-
-#### 1. ⚠️ Event Worker Pool Not Started
-**Problem:** Worker pool is defined but never initialized in main.go. Events are queued but never persisted to database.
-
-**Fix:** Add the following code to `main.go` after initializing the router:
-```go
-// In main.go, after r := server.Init(ctx)
-eventsController := events.NewEventsController(eventsRepository)
-eventsController.StartWorkerPool(ctx, 5) // Start with 5 workers
-```
-
-Note: This requires refactoring `server.Init()` to return the events controller or initializing it in main.go instead.
-
-#### 2. ✅ RBAC Authorization Implemented
-Role-based access control using Casbin is now implemented. See `QUICK_START_RBAC.md` for details.
-
-#### 3. ⚠️ In-Memory Session Storage
-Sessions are lost on restart. Should use Redis or similar for production.
-
-#### 4. ⚠️ WebSocket Error Handling
-Limited error handling in WebSocket connections. Need better error recovery.
-
-#### 5. ⚠️ No Request Validation
-Missing comprehensive input validation on API requests.
-
-### Limitations
-- Event worker pool not initialized (events queued but not persisted)
-- No pagination on reports (can return large datasets)
-- Limited input validation on request bodies
-- No rate limiting on API endpoints
-- No caching for reports
-- Event queue is in-memory (not persistent across restarts)
-- No batch import endpoints
-- No data export functionality (CSV/PDF)
-- Reports lack date range filtering
-- WebSocket connections lack authentication
-- No health check endpoint for monitoring
-
-### Scalability Concerns
-- In-memory session store (cannot scale horizontally without sticky sessions)
-- In-memory event queue (not durable, events lost on crash/restart)
-- WebSocket connections tied to single server (cannot load balance easily)
-- Events table will grow rapidly (needs partitioning strategy)
-- No query result caching (repeated queries hit database)
-- No connection pooling optimization
-- Responses table will grow very large (~450M/year) without archival strategy
-
 ## 🗺️ Roadmap
 
 ### Phase 1: Critical Fixes (Immediate)
@@ -1079,9 +1027,6 @@ Missing comprehensive input validation on API requests.
 - **[Sequence Diagrams](docs/SEQUENCE_DIAGRAMS.md)** - 6 key workflow diagrams
 - **[Technical Design Document](docs/TECHNICAL_DESIGN_DOCUMENT.md)** - Detailed technical design and architecture
 - **[RBAC Implementation](docs/RBAC_IMPLEMENTATION.md)** - Complete RBAC documentation
-- **[Quick Start RBAC](QUICK_START_RBAC.md)** - Quick setup guide for RBAC
-- **[RBAC Summary](RBAC_IMPLEMENTATION_SUMMARY.md)** - Implementation summary
-- **[Documentation README](docs/README.md)** - Documentation overview
 
 ## 🤝 Contributing
 
@@ -1113,10 +1058,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Task provided by EduAnalytics Team
 - Built as part of Backend Engineering Assessment
 - Inspired by modern educational platforms
-
-## 📞 Support
-
-For support, email shubham.agarwal@in.geekyants.com or open an issue in the repository.
 
 ## 📊 Project Statistics
 
